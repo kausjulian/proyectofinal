@@ -1,3 +1,4 @@
+import { Toast } from "bootstrap";
 import { createContext, useEffect, useState } from "react";
 
 export const TecnoContext = createContext(null);
@@ -126,9 +127,16 @@ const TecnoProvider = ({ children }) => {
 
   const [wishlist, setWishlist] = useState ([]);
 
+ useEffect(()=>{
+        localStorage.setItem("wishlist", JSON.stringify(wishlist))
+    }, [wishlist])
 
-
-  
+  const addProduct = product =>{
+      const error = wishlist.find ( wish =>wish.id === product.id)
+      if (error) return Toast.error("Este producto ya esta en tus Deseados")
+      setWishlist([product,...wishlist])
+      Toast.sucess("Agregado a Deseados")
+  }
 
 
   
