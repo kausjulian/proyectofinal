@@ -1,5 +1,6 @@
-import { Toast } from "bootstrap";
 import { createContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export const TecnoContext = createContext(null);
 
@@ -125,23 +126,46 @@ const TecnoProvider = ({ children }) => {
 
 
 
-  const [wishlist, setWishlist] = useState ([]);
+  const [wishlist, setWishlist] = useState(JSON.parse(localStorage.getItem("wishlist")) !== null ? JSON.parse(localStorage.getItem("wishlist")):
+  [])
 
- useEffect(()=>{
-        localStorage.setItem("wishlist", JSON.stringify(wishlist))
-    }, [wishlist])
-
-  const addProduct = product =>{
-      const error = wishlist.find ( wish =>wish.id === product.id)
-      if (error) return Toast.error("Este producto ya esta en tus Deseados")
-      setWishlist([product,...wishlist])
-      Toast.sucess("Agregado a Deseados")
-  }
-
-
+    // creamos un array de objetos con los datos de usuarios preexistentes
+    const [users, setUsers] = useState([ {name: "admin",
+    password: "admin"
+    },
+    {
+        name:"greelow",
+        password: "greelow"
+    },
+    {
+      name:"pdtc",
+      password: "pdtc"
+    }])
+     
   
-  return (
-    <TecnoContext.Provider value={{ productos, setProductos, wishlist, setWishlist }}>
+//datos ingresados poe el usuario
+  const [userName, setUserName] = useState('')
+  const [password, setPassword] = useState('')
+
+  //usuario logeado
+const [userLoged, setUserLoged] = useState("")
+
+//funcion para agregar a wishlist  
+let navigate = useNavigate()    
+const addProduct = product =>{
+      const error = wishlist.find(wish =>wish.id === product.id)
+      if (error) return toast.error("Este producto ya esta en tus Deseados")
+      setWishlist([product,...wishlist])
+      toast.success("Agregado a Deseados")
+      // navigate("/Carrito")
+  }
+//guardamos en el ls los deseados del usuario
+useEffect(()=>{
+  localStorage.setItem("wishlist", JSON.stringify(wishlist))
+}, [wishlist])
+
+return (
+    <TecnoContext.Provider value={{ productos, setProductos, wishlist, setWishlist,addProduct,users,setUsers,userName,setUserName,password,setPassword,userLoged,setUserLoged }}>
       {children}
     </TecnoContext.Provider>
   );

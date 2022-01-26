@@ -1,0 +1,33 @@
+.fondo{
+    padding-left: 10px;
+    color: #FF4C29;
+    font-size: 200%;
+}
+.fondo:hover{
+    opacity: 90%!important;
+}
+.color{
+background-color: #082032;
+
+}
+.letra a{
+    font-size: 150%;
+    color: #ff4c29 !important;
+}
+.letra a:hover{
+    text-decoration: #FF4C29;
+    opacity: 90%!important;
+}
+.carritos{
+    padding-left: 10px;
+    font-size: 140%;
+    color: #FF4C29;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.lupita{
+    color: #FF4C29;
+    font-size: 120%;
+    padding-left: 10px;
+}

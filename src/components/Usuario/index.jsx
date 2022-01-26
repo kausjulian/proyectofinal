@@ -1,1 +1,1 @@
-export {default} from './Carrito'
+export {default} from './Usuario'
