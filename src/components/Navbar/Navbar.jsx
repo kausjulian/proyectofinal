@@ -10,7 +10,7 @@ const Navbar = () => {
             <Link to={"/"}><i className="bi bi-display-fill fondo"></i></Link>
           </a>
           <button
-            className="navbar-toggler"
+            className="navbar-toggler botonOcultar"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
@@ -55,7 +55,8 @@ const Navbar = () => {
               <button className="btn" type="submit">
                 <i className="bi bi-search  lupita"></i>
               </button>
-              <i className="bi- bi-cart cart-icon carritos"></i>
+              <Link to={"/carrito"}><i className="bi- bi-cart cart-icon carritos"></i></Link>
+              <Link to= {"/registro"}><i class="bi bi-person-square usuario"></i></Link>
             </form>
           </div>
         </div>

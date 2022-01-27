@@ -1,29 +1,21 @@
 import { CartCheckFill, Cart, } from "react-bootstrap-icons";
 import { useState } from "react";
-import { useContext } from "react/cjs/react.development";
+import { useContext } from "react";
 import { TecnoContext } from "../../Store/appContext";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 const CardsProductos = (props) => {
   const { producto } = props;
   const [statusAgregado, setStatusAgregado] = useState(false);
-   const {addProduct} = useContext(TecnoContext)
-   const {id} = useParams()
-//   const agregado = (producto) => {
-//     statusAgregado?
-//     //si el status es true setear a false
-//     setStatusAgregado(false)
-//     :
-//     //si el status es false setear a true
-//     setStatusAgregado(true);
-//     addProduct(producto)
-//   };
+   const {addProduct, deleteCarrito,deleteAdmin} = useContext(TecnoContext)
+   let location = useLocation()
 
 
-  
-  return (
+return (
     <>
-      <div className="card m-4" style={{ width: "18rem", height: "400px" }}>
+      <Toaster/>
+      <div className="card col-sm-12 col-md-4 col-lg-3  ms-5 mt-4 mb-5 me-5 cardstyle" style={{ width: "18rem", height: "400px" }}>
         <img
           src={require(`../../img/${producto.nombre}.jpg`)}
           className="card-img-top h-50"
@@ -33,11 +25,14 @@ const CardsProductos = (props) => {
           <h5 className="card-title">{producto.nombre}</h5>
           <p className="card-text">${producto.precio}</p>
           <div className="d-flex justify-content-around mt-4">
-            <button className="btn btn-secondary ">Ver Detalle</button>
-            <button onClick={() => addProduct({...producto})}
-              className= "btn"><Cart />
-               </button>
-               
+          {location.pathname === "/" || location.pathname === "notebooks" || location.pathname === "celulares" || location.pathname === "tablets" ?
+           <button onClick={() => addProduct({...producto})}
+           className= "btn"><Cart />
+            </button>
+            : location.pathname === "/carrito"? 
+            <button className="btn" onClick={() =>deleteCarrito(producto.id) }> <i class="bi bi-trash2"></i></button>
+            :<button className="btn" onClick={() =>deleteAdmin(producto.id) }> <i class="bi bi-trash2"></i></button>
+        }
           </div>
         </div>
       </div>
@@ -46,3 +41,11 @@ const CardsProductos = (props) => {
 };
 
 export default CardsProductos;
+
+
+
+
+
+
+
+

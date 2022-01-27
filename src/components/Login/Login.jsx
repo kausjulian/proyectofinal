@@ -6,18 +6,18 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   ///importacion del context
-  const {users,userName, setUserName, password, setPassword,setUserLoged} = useContext(TecnoContext)
+  const {users,userName, setUserName, userPassword, setPassword,setUserLoged} = useContext(TecnoContext)
   
   const [error, setError] = useState(false);
   
-  console.log(password);
+  console.log(userPassword);
 ///variable para redireccionar
   let navigate = useNavigate()
 
   const validacion = (e) => {
     e.preventDefault()
     for (let i = 0; i < users.length; i++) {
-    if(userName == users[i].name && password==users[i].password){
+    if(userName == users[i].name && userPassword==users[i].password){
         setUserLoged(`User: ${users[i].name} Pass: ${users[i].password}`)
         // toast.success("Bienvenido a TecnoGreen!")
         navigate('/usuario')

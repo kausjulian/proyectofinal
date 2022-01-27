@@ -9,10 +9,10 @@ const Home = () => {
   const { productos, setProductos, userLoged } = useContext(TecnoContext);
 
   return (
-        <div className="conatiner">
+        <div className="home">
                 <Toaster/>
-        <div>
-          <h2 className="text-center mt-3">Bienvenido a nuestra pagina</h2>
+        <div className="">
+          <h2 className="text-center titulo">Tecnogreen</h2>
           <div className="d-flex flex-wrap justify-content-between">
             {productos.map((producto) => (
               <CardsProductos key={producto.id} producto={{ ...producto }} />

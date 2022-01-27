@@ -112,21 +112,7 @@ const TecnoProvider = ({ children }) => {
                     descripcion: "El MacBook Pro 15 ha muerto y en buena hora porque ese teclado era un infierno de problema. El MacBook Pro (16-inch, 2019) lo soluciona y además es tan fino y tiene el mismo tamaño que el de 15 pulgadas... excepto que han aumentado el tamaño de la pantalla — realmente excelente, por cierto — a 16 pulgadas gracias a los marcos muy reducidos. Puntos extra: el sonido es francamente bueno.",
                     }
 ])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  const [wishlist, setWishlist] = useState(JSON.parse(localStorage.getItem("wishlist")) !== null ? JSON.parse(localStorage.getItem("wishlist")):
+const [wishlist, setWishlist] = useState(JSON.parse(localStorage.getItem("wishlist")) !== null ? JSON.parse(localStorage.getItem("wishlist")):
   [])
 
     // creamos un array de objetos con los datos de usuarios preexistentes
@@ -143,29 +129,51 @@ const TecnoProvider = ({ children }) => {
     }])
      
   
-//datos ingresados poe el usuario
+    //datos ingresados poe el usuario
   const [userName, setUserName] = useState('')
-  const [password, setPassword] = useState('')
+  const [userPassword, setPassword] = useState('')
 
   //usuario logeado
 const [userLoged, setUserLoged] = useState("")
 
 //funcion para agregar a wishlist  
-let navigate = useNavigate()    
+
 const addProduct = product =>{
       const error = wishlist.find(wish =>wish.id === product.id)
       if (error) return toast.error("Este producto ya esta en tus Deseados")
       setWishlist([product,...wishlist])
       toast.success("Agregado a Deseados")
-      // navigate("/Carrito")
+      
   }
+
+  //funcion para eliminar del carrito
+const deleteCarrito = (id) =>{
+  setWishlist(wishlist.filter(wish=>wish.id != id))
+  toast.success("Producto eliminado con éxito")
+  }
+
+//funcion para eliminar productos admin
+
+const deleteAdmin = (id) =>{
+  setProductos(productos.filter(producto=>producto.id != id))
+  
+}
+
+///delete users admin
+const deleteUsers = (name) =>{
+  setUsers(users.filter(user=>user.name!=name))
+  toast.success("Usuario eliminado con éxito")
+  console.log(users)
+}
+
+
 //guardamos en el ls los deseados del usuario
 useEffect(()=>{
   localStorage.setItem("wishlist", JSON.stringify(wishlist))
 }, [wishlist])
 
 return (
-    <TecnoContext.Provider value={{ productos, setProductos, wishlist, setWishlist,addProduct,users,setUsers,userName,setUserName,password,setPassword,userLoged,setUserLoged }}>
+    <TecnoContext.Provider value={{ productos, setProductos, wishlist, setWishlist,addProduct,users,setUsers,userName,setUserName,userPassword,setPassword,userLoged,setUserLoged,deleteCarrito,deleteAdmin,deleteUsers }}>
       {children}
     </TecnoContext.Provider>
   );
